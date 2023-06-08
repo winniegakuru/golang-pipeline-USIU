@@ -3,7 +3,9 @@ package main
 import (
 	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
+	"fmt"
 )
+var version = "dev"
 
 func main() {
 	r := gin.Default()
