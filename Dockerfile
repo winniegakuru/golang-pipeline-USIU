@@ -1,12 +1,13 @@
-FROM golang:1.16.4-buster AS builder
+FROM golang:1.14.9-alpine AS builder
+RUN mkdir /build
+ADD go.mod go.sum main.go /build/
+WORKDIR /build
+RUN go build
 
-ARG VERSION=dev
-
-WORKDIR /go/src/app
-COPY main.go .
-RUN go build -o main -ldflags=-X=main.version=${VERSION} main.go 
-
-FROM debian:buster-slim
-COPY --from=builder /go/src/app/main /go/bin/main
-ENV PATH="/go/bin:${PATH}"
-CMD ["main"]
+FROM alpine
+RUN adduser -S -D -H -h /app appuser
+USER appuser
+COPY --from=builder /build/helloworld /app/
+COPY views/ /app/views
+WORKDIR /app
+CMD ["./helloworld"]
