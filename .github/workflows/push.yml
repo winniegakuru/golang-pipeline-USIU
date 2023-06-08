@@ -37,6 +37,6 @@ jobs:
                 uses: docker/build-push-action@v2
                 with:
                     push: true
-                    tags: muthonig/golang-pipeline:${{ env.BRANCH }}-v1.0.0.2
-                    build-args: |
-                        BRANCH=${{ env.BRANCH }}
+                    tags: muthonig/golang-pipeline:v1.0.0.2
+#                     build-args: |
+#                         BRANCH=${{ env.BRANCH }}
